@@ -244,7 +244,7 @@ const textAttrView = {
 const canvasView = {
 
   init () {
-    const [CANVAS_HEIGHT, CANVAS_WIDTH] = [500, 500];
+    const [CANVAS_HEIGHT, CANVAS_WIDTH] = [300, 300];
     this.canvas = document.querySelector('#animation-canvas');
     this.saveButton = document.querySelector('#save-btn');
     [this.canvas.height, this.canvas.width] = [CANVAS_HEIGHT, CANVAS_WIDTH];

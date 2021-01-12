@@ -7,7 +7,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/reset.css" rel="stylesheet" type="text/css">
-  <link href="css/style.css" rel="stylesheet" type="text/css">
+   <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -16,13 +16,15 @@
   <a class="btn btn--save" id="save-btn">Save</a>
 
   <form class="content">
-   <div class="form__grp form__grp--text-1">
+
     <div class="input-block input-block--file">
       <label for="" class="file-input-label">Image:</label>
       <input type="file" id="file-input" class="file-input" size="60">
    </div>
 
-    <div class="input-block text-1">
+   <div class="form__grp form__grp--text">
+
+    <div class="input-block input-block--text">
       <label for="top-text-input">Text 1:</label>
       <input id="top-text-input" class="text-input top" type="text"><br>
     </div>
@@ -35,15 +37,15 @@
       </label>
     </div>
     
-    <div class="input-block">
+    <div class="input-block input-block--range">
       <label for="offset-top-input">Offset</label>
       <input type="range" id="offset-top-input" class="range-input" name="offset-top-input" min="15" max="450" value="50" data-sizing="px">
     </div>
 
    </div>
    
-   <div class="form__grp form__grp--text-2">
-    <div class="input-block text-2">
+   <div class="form__grp form__grp--text">
+    <div class="input-block input-block--text">
       <label for="bottom-text-input">Text 2:</label>
       <input id="bottom-text-input" class="text-input bottom" type="text"><br>
     </div>
@@ -56,7 +58,7 @@
       </label>
     </div>
     
-    <div class="input-block">
+    <div class="input-block input-block--range">
       <label for="offset-bottom-input">Offset</label>
       <input type="range" id="offset-bottom-input" class="range-input" name="offset-bottom-input" min="5" max="450" value="25" data-sizing="px">
     </div>
@@ -106,6 +108,10 @@
     </div>
   </form>
 
+  <section class="btn-grp">
+    <button class="content">Content</button>
+    <button class="Text">Text</button>
+  </section>
   <script src = "app.js"></script>
 
 </body>

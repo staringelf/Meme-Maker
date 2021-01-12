@@ -6,6 +6,8 @@
 
 :root{
   --clr-primary:  rgba(81, 203, 238, 1);
+  --clr-grey: #777;
+  --clr-black: #2c3e50;
 }
 
 .btn{
@@ -22,6 +24,10 @@
 .btn--save{
   background-color: var(--clr-primary);
   color: #fefefe;
+}
+
+.input-block{
+  margin: 8px 0;
 }
 
 .radio-block [type="radio"]{
@@ -44,6 +50,7 @@
 .font-family{
   display: flex;
   max-width: 400px;
+  width: 90%;
   overflow-x: scroll;
   height: 2em;
 }
@@ -55,7 +62,8 @@
 
 .input-block--file{
   display: flex;
-  width: 450px;
+  width: 90%;
+  position: relative;
 }
 
 .file-input, 
@@ -74,6 +82,8 @@
   border-bottom-left-radius: 0;
   outline: none;
   border-left: 0px;
+  position: relative;
+  width: 95%;
 }
 
 .file-input-label {
@@ -94,6 +104,28 @@
   flex: 0 0 auto;
 }
 
+.range-input {
+  position: relative;
+  -webkit-appearance: none;
+  height: 2px;
+  width: 60%;
+  border-radius: 5px;
+  background: var(--clr-grey);
+  outline: none;
+  padding: 0;
+  bottom: 4px;
+}
+
+
+
+.range-input::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--clr-black);
+    cursor: pointer;
+}
 
 #image-container {
   display: flex;
@@ -101,4 +133,39 @@
 
 form{
   margin-bottom: 20px;
+}
+
+
+/*Content*/
+
+.content{
+  width: 95%;
+  margin: 0 auto;
+}
+
+.content .form__grp{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form__grp > .input-block{
+  flex: 0 1 50%;
+}
+
+.form__grp > .input-block--text{
+  flex: 0 1 100%;
+}
+
+.input-block--text input{
+  width: 85%;
+  height: 2em;
+  border: none;
+  background: #e9ecef;  
+  color: #555;
+  font-weight: 400;
+  border-radius: 5px;
+  border: .5px solid #ddd;
+  padding: 0 25px;
+  margin-left: .5em;
+  outline: none;  
 }
