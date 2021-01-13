@@ -6,17 +6,136 @@
 
 :root{
   --clr-primary:  rgba(81, 203, 238, 1);
-  --clr-grey: #777;
-  --clr-black: #2c3e50;
+  --clr-black: #100c08;
+  --clr-dark: #2c3e50;
+  --clr-light: #fafafa;
+
   --fs-3: 16px;
+  --fs-small: 14px;
 }
 
 @media screen and (max-width: 600px){
   :root{
     --fs-3: 14px;
+    --fs-small: 13px;
   }
 }
 
 body{
   font-size: var(--fs-3);
+}
+
+@media screen and (max-width: 600px){
+  .project_container{
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .curtain{
+    display: none;
+  }
+
+  .form__block{
+    margin-top: 10px;
+  }
+
+  .btn{
+    display: inline-block;
+    padding: 5px 12px;
+    background: var(--clr-dark);
+    color: var(--clr-light);
+  }
+
+  .btn--switch{
+    cursor: pointer;
+    flex: 0 1 100px;
+    background: #efefef;
+    color: var(--clr-dark);
+    transition: all .25s ease;
+    border-radius: 2px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: var(--fs-small);
+  }
+
+  .btn--switch + .btn--switch{
+    padding-left: 5px;
+  }
+
+  .btn--switch:focus{
+    outline: 1px solid var(--clr-dark); 
+  }
+
+  .btn--switch--active{
+    border: 1px solid var(--clr-dark);
+  }
+
+  .form {
+    margin-bottom: 1em;
+  }
+
+  .form .form__block + .form__block{
+    margin-top: 10px;
+  }
+
+  .canvas{
+    margin-bottom: 15px;
+  }
+
+  .switches{
+    /* position: absolute;
+    bottom: 20px;
+    left: 10px;
+    right: 10px; */
+    height: 35px;
+    display: flex; 
+    justify-content: space-between;
+  }
+
+  .form__font-family{
+    display: flex;
+    overflow-x: scroll;
+  }
+
+  .radio_block{
+    padding: 0 10px 0 0;
+    height: 28px; 
+  }
+
+  .radio_block + .radio_block{
+    margin-left: 40px;
+  }
+
+  .radio_block input[type="radio"]{
+    appearance: none;
+    outline: none;
+  }
+
+  .radio_block input[type="radio"]:checked + label{
+    font-weight: 600;
+  }
+
+  .radio_block label{
+    font-weight: 400;
+  }
+
+  .form__range{
+    appearance: none;
+    height: 2px;
+    border-radius: 5px;
+    background: #777;
+    outline: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .form__range::-webkit-slider-thumb{
+    appearance: none;
+    background: var(--clr-dark);
+    color: var(--clr-dark);
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+  }
+
 }

@@ -37,6 +37,7 @@ const octopus = {
     model.init();
     contentView.init();
     textAttrView.init();
+    tabsView.init();
     canvasView.init();
   },
 
@@ -168,6 +169,24 @@ const octopus = {
     // x.document.close();
   },
 
+  switchTab() {
+    const [switches, tabs] = [tabsView.switches, tabsView.tabs];
+
+    switches.forEach(switchBtn => switchBtn.classList.remove('btn--switch--active'));
+    this.classList.add('btn--switch--active');
+
+    const targetTabId = this.dataset.target;
+    tabs.forEach(tab => {
+    
+      if(tab.id === targetTabId){
+        tab.classList.remove('curtain');
+      } else {
+        tab.classList.add('curtain');
+      }
+    });
+
+  },
+
   decToHex(n) {
     let h = parseInt(n, 10);
     h = h.toString(16);
@@ -189,9 +208,9 @@ const octopus = {
 const contentView ={
   init () {
     this.fileInput = document.querySelector('#file-input');
-    this.textInputs = document.querySelectorAll('.text-input');
-    this.alignments = document.querySelectorAll('.alignment [type="radio"]');
-    this.rangeInputs = document.querySelectorAll('.content .range-input');
+    this.textInputs = document.querySelectorAll('.form__text');
+    this.alignments = document.querySelectorAll('.alignment');
+    this.rangeInputs = document.querySelectorAll('.form--content .form__range');
     
     this.setUpEventListeners();
   },  
@@ -208,15 +227,17 @@ const contentView ={
 
     this.rangeInputs.forEach(rangeInput => rangeInput.onmousemove = octopus.updateContentRanges);
     
+    this.rangeInputs.forEach(rangeInput => rangeInput.ontouchmove = octopus.updateContentRanges);
+    
   },
 
 }
 
 const textAttrView = {
   init () {
-    this.rangeInputs = document.querySelectorAll('.text-attributes .range-input');
-    this.colorInputs = document.querySelectorAll('.text-attributes .color-input');
-    this.fontInputs = document.querySelectorAll('.font-family [type="radio"]');
+    this.rangeInputs = document.querySelectorAll('.form--text-attributes .form__range');
+    this.colorInputs = document.querySelectorAll('.form--text-attributes .form__color');
+    this.fontInputs = document.querySelectorAll('.form__font-family [type="radio"]');
 
     this.render();
     this.setUpEventListeners();
@@ -227,6 +248,8 @@ const textAttrView = {
     this.rangeInputs.forEach(rangeInput => rangeInput.onchange = octopus.updateTextRanges);
     
     this.rangeInputs.forEach(rangeInput => rangeInput.onmousemove = octopus.updateTextRanges);
+
+    this.rangeInputs.forEach(rangeInput => rangeInput.ontouchmove = octopus.updateTextRanges);
     
     this.colorInputs.forEach(colorInput => colorInput.onchange = octopus.updateTextColors);
  
@@ -239,6 +262,20 @@ const textAttrView = {
     document.querySelector('#stroke-input').value = data.textAttributes.strokeColor;
   }
 
+}
+
+const tabsView = {
+  init () {
+    this.switches = document.querySelectorAll('.btn--switch');
+    
+    this.tabs = document.querySelectorAll('.form');
+
+    this.setUpEventListeners();
+  },
+
+  setUpEventListeners () {
+    this.switches.forEach(switchBtn => switchBtn.onclick = octopus.switchTab);
+  }
 }
 
 const canvasView = {
@@ -330,14 +367,14 @@ const canvasView = {
       const x = this.getOffsetX(canvas.width, alignment);
       const y = content.offsetTop;
       console.log(y);
-      this.writeText(ctx, content.topText, x, y, alignment, 500, textAttributes.lineHeight);
+      this.writeText(ctx, content.topText, x, y, alignment, canvas.width - 10, textAttributes.lineHeight);
     }
     
     if (content.bottomText) {
       const alignment = ctx.textAlign = content.bottomTextAlign; 
       const x = this.getOffsetX(canvas.width, alignment);
       const y = canvas.height - content.offsetBottom;
-      this.writeText(ctx, content.bottomText, x, y, alignment, 480, textAttributes.lineHeight);
+      this.writeText(ctx, content.bottomText, x, y, alignment, canvas.width - 10, textAttributes.lineHeight);
     }
   }
 }
