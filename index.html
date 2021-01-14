@@ -15,13 +15,13 @@
 </body>
 </html>
 <body>
- <div class="project_container">
+ 
 
-  <div class="canvas">
-    <canvas id="animation-canvas"></canvas>
+  <div class="canvas_container">
+    <!-- <canvas id="animation-canvas"></canvas> -->
     <a class="btn btn--save" id="save-btn">Save</a>
   </div>
-  
+  <div class="form_container"> 
   <form class="form form--content" id="content">
 
     <div class="form__block form__block--file">
@@ -114,14 +114,13 @@
       <input id="stroke-input" class="form__color form__color--stroke" type="color" name="stroke-input">
     </div>
   </form>
-
-  <section class="switches">
-    <button class="btn btn--switch btn--switch--active" id="content-btn" data-target="content">Content</button>
-    <button class="btn btn--switch" id="text-btn" data-target="text-attributes">Text</button>
-    <button class="btn btn--switch" id="add_on-btn" data-target="add-ons">Add Ons</button>
-  </section>
-  
  </div>
+
+ <section class="switches">
+  <button class="btn btn--switch btn--switch--active" id="content-btn" data-target="content">Content</button>
+  <button class="btn btn--switch" id="text-btn" data-target="text-attributes">Text</button>
+  <button class="btn btn--switch" id="add_on-btn" data-target="add-ons">Add Ons</button>
+</section>
   <script src = "app.js"></script>
 
   

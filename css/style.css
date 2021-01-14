@@ -26,9 +26,10 @@ body{
 }
 
 @media screen and (max-width: 600px){
-  .project_container{
+  .form_container{
     width: 95%;
-    margin: 0 auto;
+    margin: 0 auto; 
+    overflow-y: scroll;
   }
 
   .curtain{
@@ -78,15 +79,15 @@ body{
     margin-top: 10px;
   }
 
-  .canvas{
-    margin-bottom: 15px;
+  .canvas_container{
+    margin: 2px 0 15px;
   }
 
   .switches{
-    /* position: absolute;
-    bottom: 20px;
-    left: 10px;
-    right: 10px; */
+    position: sticky;
+    bottom: 2px;
+    left: 5px;
+    right: 5px;
     height: 35px;
     display: flex; 
     justify-content: space-between;

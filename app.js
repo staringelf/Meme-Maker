@@ -3,13 +3,22 @@
 const model = {
   init () {
     this.content = {
-      imageSrc: null,
-      topText: null,
-      topTextAlign: 'center',
-      offsetTop: 50,
-      bottomText: null,
-      bottomTextAlign: 'center',
-      offsetBottom: 25,
+      img: {
+        src: null,
+        filter: null,
+      },
+      
+      topText: {
+        text: null,
+        align: 'center',
+        offset: 50
+      },
+      
+      bottomText: {
+        text: null,
+        align: 'center',
+        offset: 25
+      }
     };
 
     this.textAttributes = {
@@ -51,7 +60,7 @@ const octopus = {
       // Create an image object
       const image = new Image();
       image.onload = function() {
-        model.content.imageSrc = this;
+        model.content.img.src = this;
         canvasView.redrawMeme();
       }    
       image.src = data;
@@ -64,9 +73,9 @@ const octopus = {
     const id = e.target.id;
     const text = e.target.value;
      if (id == "top-text-input") {
-       model.content.topText = text;
+       model.content.topText.text = text;
      } else if (id == "bottom-text-input"){
-       model.content.bottomText = text;
+       model.content.bottomText.text = text;
     }
     canvasView.redrawMeme();
   },
@@ -78,10 +87,10 @@ const octopus = {
     const content = model.content;
     switch (alignment){
       case 'alignment-top':
-        content.topTextAlign = alignmentValue;
+        content.topText.align = alignmentValue;
         break;
       case 'alignment-bottom':
-        content.bottomTextAlign = alignmentValue;
+        content.bottomText.align = alignmentValue;
         break;
     }
     canvasView.redrawMeme();
@@ -95,10 +104,10 @@ const octopus = {
 
     switch (targetInputId){
       case 'offset-top-input':
-        content.offsetTop = targetInput.value;
+        content.topText.offset = targetInput.value;
         break;
       case 'offset-bottom-input': 
-        content.offsetBottom = targetInput.value;
+        content.bottomText.offset = targetInput.value;
         break;
     }
     canvasView.redrawMeme();
@@ -281,11 +290,20 @@ const tabsView = {
 const canvasView = {
 
   init () {
-    const [CANVAS_HEIGHT, CANVAS_WIDTH] = [300, 300];
-    this.canvas = document.querySelector('#animation-canvas');
+    const CANVAS_WIDTH = screen.width < 550 ? screen.width : 550;
+    const CANVAS_HEIGHT = CANVAS_WIDTH;
     this.saveButton = document.querySelector('#save-btn');
-    [this.canvas.height, this.canvas.width] = [CANVAS_HEIGHT, CANVAS_WIDTH];
+    this.canvas = this.createCanvas(CANVAS_HEIGHT, CANVAS_WIDTH);
     this.setUpEventListeners();
+  },
+
+  createCanvas(height, width) {
+    const canvas = document.createElement('canvas');
+    [canvas.height, canvas.width] = [height, width];
+    canvas.id = 'animation-canvas';
+    document.querySelector('.canvas_container').insertAdjacentElement('afterbegin', canvas);
+    canvas.style.height = height + 'px';
+    return canvas;
   },
 
   setUpEventListeners () {
@@ -298,6 +316,7 @@ const canvasView = {
 
 
   writeText (ctx, text, x, y, alignment, maxWidth, lineHeight) {
+    ctx.filter = 'none';
     const words = text.split(' ');
     const lines = [];
     let line = '';
@@ -347,34 +366,34 @@ const canvasView = {
 
     const {content, textAttributes} = data;
     
-    console.log(textAttributes);
+    const {topText, bottomText, img} = content;
+    console.log(content, topText);
 
-    if (content.imageSrc != null){
-      ctx.drawImage(content.imageSrc, 0, 0, canvas.width, canvas.height);
+    if (img.src != null){
+      ctx.drawImage(img.src, 0, 0, canvas.width, canvas.height);
     }
 
     ctx.font = `${textAttributes.fontSize} ${textAttributes.font}`;
-    
     ctx.shadowBlur = textAttributes.shadow.blur;
     ctx.shadowColor = textAttributes.shadow.color;
-    console.log(ctx.shadowBlur, ctx.shadowColor);
     ctx.lineWidth = textAttributes.strokeWidth;
     ctx.strokeStyle = textAttributes.strokeColor + octopus.decToHex(textAttributes.opacity); 
     ctx.fillStyle = textAttributes.fillColor + octopus.decToHex(textAttributes.opacity);
-    
-    if (content.topText) {
-      const alignment = content.topTextAlign;
+    ctx.filter = img.filter;
+
+    if (topText.text) {
+      const alignment = topText.align;
       const x = this.getOffsetX(canvas.width, alignment);
-      const y = content.offsetTop;
+      const y = topText.offset;
       console.log(y);
-      this.writeText(ctx, content.topText, x, y, alignment, canvas.width - 10, textAttributes.lineHeight);
+      this.writeText(ctx, topText.text, x, y, alignment, canvas.width - 10, textAttributes.lineHeight);
     }
     
-    if (content.bottomText) {
-      const alignment = ctx.textAlign = content.bottomTextAlign; 
+    if (bottomText.text) {
+      const alignment = ctx.textAlign = bottomText.align; 
       const x = this.getOffsetX(canvas.width, alignment);
-      const y = canvas.height - content.offsetBottom;
-      this.writeText(ctx, content.bottomText, x, y, alignment, canvas.width - 10, textAttributes.lineHeight);
+      const y = canvas.height - bottomText.offset;
+      this.writeText(ctx, bottomText.text, x, y, alignment, canvas.width - 10, textAttributes.lineHeight);
     }
   }
 }
