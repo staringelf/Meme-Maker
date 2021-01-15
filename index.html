@@ -36,12 +36,10 @@
       <input id="top-text-input" class="form__text" type="text">
     </div>
     
-    <div class="form__block form__block--radio">
-      <label for="alignment-top" class="label label--alignment">Alignment
-       <input type="radio" class="alignment left" value="start" name="alignment-top">
-       <input type="radio" class="alignment center" value="center" name="alignment-top" checked>
-       <input type="radio" class="alignment right" value="end" name="alignment-top">
-      </label>
+    <div class="form__block form__block--radio" data-for="top-text"><span>Alignment</span>
+       <label for="top-align-left"> <input type="radio" id="top-align-left" class="alignment left" value="start" name="alignment-top"></label>
+       <label for="top-align-center"><input type="radio" id="top-align-center" class="alignment center" value="center" name="alignment-top" checked></label>
+       <label for="top-align-right"><input type="radio" id="top-align-right" class="alignment right" value="end" name="alignment-top"></label>
     </div>
     
     <div class="form__block form__block--range">
@@ -57,12 +55,10 @@
       <input id="bottom-text-input" class="form__text" type="text">
     </div>
 
-    <div class="form__block form__block--radio">
-      <label for="alignment-bottom" class="alignment">Alignment
-       <input type="radio" class="alignment left" value="start" name="alignment-bottom">
-       <input type="radio" class="center" value="center" name="alignment-bottom" checked>
-       <input type="radio" class="right" value="end" name="alignment-bottom">
-      </label>
+    <div class="form__block form__block--radio" data-for="bottom-text"><span>Alignment</span>
+       <label for="bottom-align-left"><input type="radio" id="bottom-align-left" class="alignment left" value="start" name="alignment-bottom"></label>
+       <label for="bottom-align-center"><input type="radio" id="bottom-align-center" class="alignment center" value="center" name="alignment-bottom" checked></label>
+       <label for="bottom-align-right"><input type="radio" id="bottom-align-right" class="alignment right" value="end" name="alignment-bottom"></label>
     </div>
     
     <div class="form__block form__block--range">
@@ -84,7 +80,7 @@
         <div class="radio_block"><input type="radio" name="font-family" id="Calibri" value="Calibri"><label for="Calibri">Calibri</label></div>
       </div>
     </div>
-
+   <div class="form__grp form__grp--range">
     <div class="form__block">
       <label for="shadow-input">Shadow</label>
       <input type="range" id="shadow-input" class="form__range" name="shadow-input" min="0" max="200" value="0">
@@ -98,21 +94,24 @@
       <input type="range" id="font-size-input" class="form__range" name="font-size-input" min="10" max="80" value="32">
     </div>
     <div class="form__block">
+      <label for="stroke-width-input">Outline</label>
+      <input type="range" id="stroke-width-input" class="form__range" name="stroke-width-input" min="10" max="200" value="30">
+    </div>
+    <div class="form__block ">
       <label for="line-height-input">Line Height</label>
       <input type="range" id="line-height-input" class="form__range" name="line-height-input" min="10" max="90" value="40">
     </div>
+   <div class="form__grp--color">
     <div class="form__block">
-      <label for="stroke-width-input">Stroke Width</label>
-      <input type="range" id="stroke-width-input" class="form__range" name="stroke-width-input" min="10" max="200" value="30">
-    </div>
-    <div class="form__block">
-      <label for="fill-input">Fill</label>
+      <label for="fill-input">Fill </label>
       <input id="fill-input" class="form__color form__color--fill" type="color" name="fill-input">
     </div>
     <div class="form__block">
       <label for="stroke-input">Stroke</label>
       <input id="stroke-input" class="form__color form__color--stroke" type="color" name="stroke-input">
     </div>
+   </div>
+  </div>
   </form>
  </div>
 
@@ -120,9 +119,8 @@
   <button class="btn btn--switch btn--switch--active" id="content-btn" data-target="content">Content</button>
   <button class="btn btn--switch" id="text-btn" data-target="text-attributes">Text</button>
   <button class="btn btn--switch" id="add_on-btn" data-target="add-ons">Add Ons</button>
-</section>
+ </section>
   <script src = "app.js"></script>
-
   
 </body>
 

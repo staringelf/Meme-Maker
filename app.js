@@ -36,8 +36,10 @@ const model = {
     };
 
     this.colors = {
-      theme: 'light'
+      theme: 'light',
     };
+
+    this.switchFlow = 'sticky';
   },
 }
 
@@ -81,18 +83,19 @@ const octopus = {
   },
 
   updateAlignment(e) {
-    const alignment = e.target.parentNode.getAttribute('for');
+    const textType = e.target.closest('.form__block').dataset.for;
     const alignmentValue = e.target.value;
     console.log(alignmentValue);
     const content = model.content;
-    switch (alignment){
-      case 'alignment-top':
+    switch (textType){
+      case 'top-text':
         content.topText.align = alignmentValue;
         break;
-      case 'alignment-bottom':
+      case 'bottom-text':
         content.bottomText.align = alignmentValue;
         break;
     }
+    contentView.render();
     canvasView.redrawMeme();
   },
 
@@ -111,6 +114,7 @@ const octopus = {
         break;
     }
     canvasView.redrawMeme();
+    contentView.render();
   },
 
   updateTextRanges(e) {
@@ -140,6 +144,7 @@ const octopus = {
 
     console.log(targetInput.value, textAttributes);
     canvasView.redrawMeme();
+    textAttrView.render();
   },
 
   updateTextColors(e) {
@@ -186,14 +191,22 @@ const octopus = {
 
     const targetTabId = this.dataset.target;
     tabs.forEach(tab => {
-    
       if(tab.id === targetTabId){
         tab.classList.remove('curtain');
       } else {
         tab.classList.add('curtain');
       }
     });
+     model.switchFlow = document.body.getBoundingClientRect().height > screen.height ? 'sticky' : 'fixed';
 
+    tabsView.render();
+  },
+
+  fillRangeLower(rangeInput) {
+    const percentage = 100*(rangeInput.value - rangeInput.min) / (rangeInput.max - rangeInput.min);
+    const background = `linear-gradient(90deg, #100c08 ${percentage}%, #777 ${percentage+0.1}%)`;
+    rangeInput.style.background = background;
+    return rangeInput;
   },
 
   decToHex(n) {
@@ -211,6 +224,10 @@ const octopus = {
       content: model.content,
       textAttributes: model.textAttributes
     }
+  },
+
+  getSwitchFlow () {
+    return model.switchFlow;
   }
 }
 
@@ -219,9 +236,11 @@ const contentView ={
     this.fileInput = document.querySelector('#file-input');
     this.textInputs = document.querySelectorAll('.form__text');
     this.alignments = document.querySelectorAll('.alignment');
+    this.alignmentLabels = document.querySelectorAll('.form__block--radio label');
     this.rangeInputs = document.querySelectorAll('.form--content .form__range');
     
     this.setUpEventListeners();
+    this.render();
   },  
 
   setUpEventListeners () {
@@ -239,6 +258,14 @@ const contentView ={
     this.rangeInputs.forEach(rangeInput => rangeInput.ontouchmove = octopus.updateContentRanges);
     
   },
+
+  render() {
+    this.alignments.forEach((alignmentInput, index) => {
+      alignmentInput.checked ? this.alignmentLabels[index].classList.add('darken') : this.alignmentLabels[index].classList.remove('darken'); 
+    })
+
+    this.rangeInputs.forEach(rangeInput => octopus.fillRangeLower(rangeInput));
+  }
 
 }
 
@@ -269,6 +296,8 @@ const textAttrView = {
     const data = octopus.getData();
     document.querySelector('#fill-input').value = data.textAttributes.fillColor;
     document.querySelector('#stroke-input').value = data.textAttributes.strokeColor;
+  
+    this.rangeInputs.forEach(rangeInput => octopus.fillRangeLower(rangeInput));
   }
 
 }
@@ -279,12 +308,21 @@ const tabsView = {
     
     this.tabs = document.querySelectorAll('.form');
 
+    this.switchesContainer = document.querySelector('.switches');
+    
+    this.render();
+    
     this.setUpEventListeners();
   },
 
   setUpEventListeners () {
     this.switches.forEach(switchBtn => switchBtn.onclick = octopus.switchTab);
-  }
+  },
+
+  render () {
+    this.switchesContainer.style.position = model.switchFlow;
+  } 
+
 }
 
 const canvasView = {
