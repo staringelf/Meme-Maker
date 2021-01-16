@@ -39,7 +39,7 @@ const model = {
       theme: 'light',
     };
 
-    this.switchFlow = 'sticky';
+    this.switchFlow = 'fixed';
   },
 }
 
@@ -197,7 +197,7 @@ const octopus = {
         tab.classList.add('curtain');
       }
     });
-     model.switchFlow = document.body.getBoundingClientRect().height > screen.height ? 'sticky' : 'fixed';
+     model.switchFlow = document.body.getBoundingClientRect().height > window.innerHeight ? 'sticky' : 'fixed';
 
     tabsView.render();
   },
@@ -274,7 +274,7 @@ const textAttrView = {
     this.rangeInputs = document.querySelectorAll('.form--text-attributes .form__range');
     this.colorInputs = document.querySelectorAll('.form--text-attributes .form__color');
     this.fontInputs = document.querySelectorAll('.form__font-family [type="radio"]');
-
+    this.fontLabels = document.querySelectorAll('.form__font-family label');
     this.render();
     this.setUpEventListeners();
   },  
@@ -290,13 +290,18 @@ const textAttrView = {
     this.colorInputs.forEach(colorInput => colorInput.onchange = octopus.updateTextColors);
  
     this.fontInputs.forEach(fontInput => fontInput.onchange = octopus.updateTextFont);
+
+    this.fontLabels.forEach((fontLabel, index) => {
+      fontLabel.style.fontFamily = this.fontInputs[index].value;
+    });
   },
 
   render () {
     const data = octopus.getData();
     document.querySelector('#fill-input').value = data.textAttributes.fillColor;
     document.querySelector('#stroke-input').value = data.textAttributes.strokeColor;
-  
+
+   
     this.rangeInputs.forEach(rangeInput => octopus.fillRangeLower(rangeInput));
   }
 

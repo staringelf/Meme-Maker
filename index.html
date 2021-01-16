@@ -7,9 +7,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="mobile-web-app-capable" content="yes">
+  <link rel="preconnect" href="https://fonts.gstatic.com"> 
+  <link href="https://fonts.googleapis.com/css2?family=Chilanka&family=Comic+Neue&family=Dancing+Script:wght@400;500;600;700&family=Kalam:wght@400;700&family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Pacifico:wght@400;500&display=swap" rel="stylesheet">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/reset.css" rel="stylesheet" type="text/css">
-   <link href="css/style.css" rel="stylesheet" type="text/css">
+  <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
   
 </body>
@@ -19,8 +21,9 @@
 
   <div class="canvas_container">
     <!-- <canvas id="animation-canvas"></canvas> -->
-    <a class="btn btn--save" id="save-btn">Save</a>
   </div>
+  <a class="btn btn--save" id="save-btn">Save</a>
+  
   <div class="form_container"> 
   <form class="form form--content" id="content">
 
@@ -32,7 +35,7 @@
    <div class="form__grp form__grp--text">
 
     <div class="form__block form__block--text">
-      <label for="top-text-input">Text 1</label>
+      <label for="top-text-input" >Text 1:</label>
       <input id="top-text-input" class="form__text" type="text">
     </div>
     
@@ -51,7 +54,7 @@
    
    <div class="form__grp form__grp--text">
     <div class="form__block form__block--text">
-      <label for="bottom-text-input">Text 2</label>
+      <label for="bottom-text-input">Text 2:</label>
       <input id="bottom-text-input" class="form__text" type="text">
     </div>
 
@@ -74,10 +77,17 @@
       <div class="form__font-family">
        <!-- <p>Font</p>-->
         <div class="radio_block"><input type="radio" name="font-family" id="Impact" value="Impact" checked><label for="Impact">Impact</label></div>
-        <div class="radio_block"><input type="radio" name="font-family" id="Arial" value="Arial"><label for="Arial">Arial</label></div>
-        <div class="radio_block"><input type="radio" name="font-family" id="Times" value="Times"><label for="Times">Times</label></div>
         <div class="radio_block"><input type="radio" name="font-family" id="Pacifico" value="Pacifico"><label for="Pacifico">Pacifico</label></div>
+        <div class="radio_block"><input type="radio" name="font-family" id="Chilanka" value="Chilanka"><label for="Chilanka">Chilanka</label></div>
+        <div class="radio_block"><input type="radio" name="font-family" id="Kalam" value="Kalam"><label for="Kalam">Kalam</label></div>
+        <div class="radio_block"><input type="radio" name="font-family" id="Comic Neue" value="Comic Neue"><label for="Comic Neue">Comic</label></div>
+        <div class="radio_block"><input type="radio" name="font-family" id="Dancing-Script" value="Dancing Script"><label for="Dancing-Script">Dance</label></div>
         <div class="radio_block"><input type="radio" name="font-family" id="Calibri" value="Calibri"><label for="Calibri">Calibri</label></div>
+        <div class="radio_block"><input type="radio" name="font-family" id="Times" value="Times"><label for="Times">Times</label></div>
+        <div class="radio_block"><input type="radio" name="font-family" id="Arial" value="Arial"><label for="Arial">Arial</label></div>
+        <div class="radio_block"><input type="radio" name="font-family" id="Montserrat" value="Montserrat"><label for="Montserrat">Montserrat</label></div>
+        <div class="radio_block"><input type="radio" name="font-family" id="Poppins" value="Poppins"><label for="Poppins">Poppins</label></div>
+         
       </div>
     </div>
    <div class="form__grp form__grp--range">
@@ -91,11 +101,11 @@
     </div>
     <div class="form__block">
       <label for="font-size-input">Font Size</label>
-      <input type="range" id="font-size-input" class="form__range" name="font-size-input" min="10" max="80" value="32">
+      <input type="range" id="font-size-input" class="form__range" name="font-size-input" min="8" max="80" value="26">
     </div>
     <div class="form__block">
       <label for="stroke-width-input">Outline</label>
-      <input type="range" id="stroke-width-input" class="form__range" name="stroke-width-input" min="10" max="200" value="30">
+      <input type="range" id="stroke-width-input" class="form__range" name="stroke-width-input" min="0" max="150" value="30">
     </div>
     <div class="form__block ">
       <label for="line-height-input">Line Height</label>
@@ -113,7 +123,15 @@
    </div>
   </div>
   </form>
+
  </div>
+
+ 
+ <form action="" id="add-ons" style="background: #efefef; padding: 20px 10px; height: auto" class="form curtain">
+  <p style="font-size: 2rem; color: #100c0896; margin: 0 auto">
+    Selective and Filters <span style="font-family: 'Kalam'; display: block">Coming soon...</span>
+  </p>
+  </form>
 
  <section class="switches">
   <button class="btn btn--switch btn--switch--active" id="content-btn" data-target="content">Content</button>
