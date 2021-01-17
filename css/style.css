@@ -24,8 +24,9 @@
 }
 
 body{
-  font-family: 'Poppins';
+  font-family: 'Poppins', sans-serif;
   font-size: var(--fs-3);
+  position: relative;
 }
 
 @media screen and (max-width: 600px){
@@ -37,13 +38,19 @@ body{
 
   .canvas_container{
     position: sticky;
-    top: 0;
+    top: 1vw;
     left: 0;
     right: 0;
+    z-index: 2; 
+    background-color: #fafafa;
+    border-radius: 2px;
+    width: 98%;
+    margin: 0 auto 1vw auto; 
+    padding-bottom: 0;
   }
 
-  .curtain{
-    display: none;
+  #animation-canvas{
+    z-index: 9;
   }
 
   .darken{
@@ -55,7 +62,18 @@ body{
   }
 
   .form__block--file{
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    position: relative;
+  }
+
+  .form__file{
+    display: none;
+    position: relative;
+    height: 100%;
+    width: auto;
+    width: max-content;
+    font-size: 12px;
+    border: 1px solid var(--clr-black--fade);
   }
 
   .btn{
@@ -63,6 +81,21 @@ body{
     padding: 5px 12px;
     background: var(--clr-dark);
     color: var(--clr-light);
+  }
+
+  .btn--img{
+    background: #dfdfdf;
+    /* border: 2px solid #aaa; */
+    color: var(--clr-black--fade);
+    font-weight: 800;
+    text-transform: uppercase;
+    transform: scaleY(1.15);
+    z-index: 1000;
+  }
+
+  .btn--save{
+    position: relative;
+    left: 1%;
   }
 
   .btn--switch{
@@ -97,7 +130,7 @@ body{
     bottom: 0;
     left: 0px;
     right: 0px;
-    height: 40px;
+    height: 10vh;
     display: flex; 
     justify-content: space-between;
     background: #efefef;
@@ -111,15 +144,11 @@ body{
     margin-top: 10px;
   }
 
-  .canvas_container{
-    margin: 2px 0 15px;
-  }
-
   .form__font-family{
     display: flex;
-    overflow-x: scroll;
-    
+    overflow-x: scroll;  
   }
+
 
   .form__block--radio{
     position: relative;
@@ -128,7 +157,6 @@ body{
   .form__block--radio label{
     position: relative;
     display: inline-block;
-    width: 17px;
     height: 1.5px;
     background: #9a9a9a;
     cursor: pointer;
@@ -310,7 +338,7 @@ body{
     flex: 0 1 50%;
     display: flex;
     align-items: center;
-    font-size: 12px;
+    font-size: 123px;
     font-weight: 600;
     justify-content: space-around;
     height: 28px;
@@ -322,6 +350,7 @@ body{
     display: inline-block;
     width: 60px;
     white-space: nowrap;
+	font-size: 13px;
   }
 
   .form__grp--range .form__block:nth-of-type(even) label,
@@ -333,6 +362,15 @@ body{
   .form__grp--range input{
     width: 80px;
   }
+  
+  .curtain{
+    display: none;
+  }
+
+  .static{
+    position: static;
+  }
+
 }
 
 @media screen and (max-width: 340px){
@@ -372,3 +410,4 @@ body{
   }
 
 }
+

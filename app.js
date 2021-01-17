@@ -48,8 +48,8 @@ const octopus = {
     model.init();
     contentView.init();
     textAttrView.init();
-    tabsView.init();
     canvasView.init();
+    tabsView.init();
   },
 
   updateImage(e) {
@@ -183,13 +183,13 @@ const octopus = {
     // x.document.close();
   },
 
-  switchTab() {
+  switchTab(e) {
     const [switches, tabs] = [tabsView.switches, tabsView.tabs];
 
     switches.forEach(switchBtn => switchBtn.classList.remove('btn--switch--active'));
-    this.classList.add('btn--switch--active');
+    e.target.classList.add('btn--switch--active');
 
-    const targetTabId = this.dataset.target;
+    const targetTabId = e.target.dataset.target;
     tabs.forEach(tab => {
       if(tab.id === targetTabId){
         tab.classList.remove('curtain');
@@ -197,9 +197,9 @@ const octopus = {
         tab.classList.add('curtain');
       }
     });
-     model.switchFlow = document.body.getBoundingClientRect().height > window.innerHeight ? 'sticky' : 'fixed';
-
-    tabsView.render();
+	
+    this.updateSwitchFlow();
+	tabsView.render();
   },
 
   fillRangeLower(rangeInput) {
@@ -228,6 +228,22 @@ const octopus = {
 
   getSwitchFlow () {
     return model.switchFlow;
+  },
+  
+  updateSwitchFlow () {
+	   model.switchFlow = document.querySelector('.tabs__container').offsetHeight > window.innerHeight - tabsView.switchesContainer.offsetHeight ? 'sticky' : 'fixed';
+	   tabsView.render();
+	   return model.switchFlow;
+  },
+  
+  hideSwitchesView () {
+   tabsView.switchesContainer.classList.add('curtain');
+   canvasView.canvasContainer.classList.add('static');
+  },
+  
+  unhideSwitchesView () {
+	 tabsView.switchesContainer.classList.remove('curtain');
+   canvasView.canvasContainer.classList.remove('static');
   }
 }
 
@@ -246,6 +262,10 @@ const contentView ={
   setUpEventListeners () {
 
     this.textInputs.forEach(textInput => textInput.oninput = octopus.updateText);
+
+    this.textInputs.forEach(textInput => textInput.onfocus = octopus.hideSwitchesView);
+
+    this.textInputs.forEach(textInput => textInput.onblur = octopus.unhideSwitchesView);
 
     this.fileInput.onchange = octopus.updateImage;
 
@@ -318,14 +338,17 @@ const tabsView = {
     this.render();
     
     this.setUpEventListeners();
+	
+	octopus.updateSwitchFlow();
   },
 
   setUpEventListeners () {
-    this.switches.forEach(switchBtn => switchBtn.onclick = octopus.switchTab);
+	const octopusBoundSwitchTab = octopus.switchTab.bind(octopus);
+    this.switches.forEach(switchBtn => switchBtn.onclick = octopusBoundSwitchTab);
   },
 
   render () {
-    this.switchesContainer.style.position = model.switchFlow;
+	this.switchesContainer.style.position = model.switchFlow;
   } 
 
 }
@@ -333,10 +356,11 @@ const tabsView = {
 const canvasView = {
 
   init () {
-    const CANVAS_WIDTH = screen.width < 550 ? screen.width : 550;
+    const CANVAS_WIDTH = screen.width < 550 ? .98 * screen.width : 550;
     const CANVAS_HEIGHT = CANVAS_WIDTH;
     this.saveButton = document.querySelector('#save-btn');
     this.canvas = this.createCanvas(CANVAS_HEIGHT, CANVAS_WIDTH);
+    this.canvasContainer = document.querySelector('.canvas_container');
     this.setUpEventListeners();
   },
 
