@@ -356,7 +356,7 @@ body{
   .form__grp--range .form__block:nth-of-type(even) label,
   .form__grp--color .form__block:nth-of-type(even) label{
     margin-left: 10px;
-    
+
   }
 
   .form__grp--range input{
@@ -369,6 +369,22 @@ body{
 
   .static{
     position: static;
+  }
+
+  .sticky {
+    position: sticky;
+  }
+
+  .relative {
+    position: relative;
+  }
+
+  .fixed {
+    position: fixed;
+  }
+
+  .absolute{
+    position: absolute;
   }
 
 }

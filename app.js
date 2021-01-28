@@ -236,13 +236,13 @@ const octopus = {
 	   return model.switchFlow;
   },
   
-  hideSwitchesView () {
-   tabsView.switchesContainer.classList.add('curtain');
+  onfocusView () {
+   tabsView.switchesContainer.style.position = 'static';
    canvasView.canvasContainer.classList.add('static');
   },
   
-  unhideSwitchesView () {
-	 tabsView.switchesContainer.classList.remove('curtain');
+  normalView () {
+	 tabsView.switchesContainer.style.position = model.switchFlow;
    canvasView.canvasContainer.classList.remove('static');
   }
 }
@@ -263,9 +263,9 @@ const contentView ={
 
     this.textInputs.forEach(textInput => textInput.oninput = octopus.updateText);
 
-    this.textInputs.forEach(textInput => textInput.onfocus = octopus.hideSwitchesView);
+    this.textInputs.forEach(textInput => textInput.onfocus = octopus.onfocusView);
 
-    this.textInputs.forEach(textInput => textInput.onblur = octopus.unhideSwitchesView);
+    this.textInputs.forEach(textInput => textInput.onblur = octopus.normalView);
 
     this.fileInput.onchange = octopus.updateImage;
 
@@ -356,8 +356,11 @@ const tabsView = {
 const canvasView = {
 
   init () {
-    const CANVAS_WIDTH = screen.width < 550 ? .98 * screen.width : 550;
-    const CANVAS_HEIGHT = CANVAS_WIDTH;
+    const CANVAS_WIDTH = window.innerWidth < 550 ? .98 * window.innerWidth : 550;
+    let CANVAS_HEIGHT = CANVAS_WIDTH;
+    if (window.innerHeight - window.innerWidth > 300) {
+      CANVAS_HEIGHT = 1.33 * CANVAS_WIDTH;
+    }
     this.saveButton = document.querySelector('#save-btn');
     this.canvas = this.createCanvas(CANVAS_HEIGHT, CANVAS_WIDTH);
     this.canvasContainer = document.querySelector('.canvas_container');
