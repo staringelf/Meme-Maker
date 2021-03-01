@@ -1,7 +1,7 @@
 # Meme-Maker
 A meme creator crafted using JavaScript and HTML5 Canvas (MVC) 
 
- ❗ _Currently only available in mobile 
+ ❗ _Currently only available in mobile_
 ## Prerequisites
 You need to have at least Chrome 87 for Android installed on your mobile device
 
